@@ -1,36 +1,60 @@
 import { Button } from "@/components/Button";
 import {
   ArrowRight,
+  Atom,
+  Boxes,
+  Braces,
+  Cloud,
+  Container,
   ChevronDown,
+  Database,
   Github,
+  GitBranch,
   Linkedin,
+  Palette,
+  Server,
+  TestTube2,
+  Triangle,
   Twitter,
+  Wind,
+  Workflow,
   Download,
 } from "lucide-react";
 import { AnimatedBorderButton } from "../components/AnimatedBorderButton";
 
 const skills = [
-  "React",
-  "Next.js",
-  "TypeScript",
-  "Node.js",
-  "GraphQL",
-  "PostgreSQL",
-  "MongoDB",
-  "Redis",
-  "Docker",
-  "AWS",
-  "Vercel",
-  "Tailwind CSS",
-  "Prisma",
-  "Jest",
-  "Cypress",
-  "Figma",
-  "Git",
-  "GitHub Actions",
+  { name: "React", icon: Atom },
+  { name: "Next.js", icon: Triangle },
+  { name: "TypeScript", icon: Braces },
+  { name: "Node.js", icon: Server },
+  { name: "GraphQL", icon: Boxes },
+  { name: "PostgreSQL", icon: Database },
+  { name: "MongoDB", icon: Database },
+  { name: "Redis", icon: Database },
+  { name: "Docker", icon: Container },
+  { name: "AWS", icon: Cloud },
+  { name: "Vercel", icon: Triangle },
+  { name: "Tailwind CSS", icon: Wind },
+  { name: "Prisma", icon: Database },
+  { name: "Jest", icon: TestTube2 },
+  { name: "Cypress", icon: TestTube2 },
+  { name: "Figma", icon: Palette },
+  { name: "Git", icon: GitBranch },
+  { name: "GitHub Actions", icon: Workflow },
 ];
 
 export const Hero = () => {
+  const scrollToAbout = (event) => {
+    event.preventDefault();
+
+    const about = document.getElementById("about");
+    if (!about) return;
+
+    const headerOffset = 96;
+    const top = about.getBoundingClientRect().top + window.scrollY - headerOffset;
+    window.scrollTo({ top, behavior: "smooth" });
+  };
+
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden">
       {/* Bg */}
@@ -62,7 +86,7 @@ export const Hero = () => {
       </div>
 
       {/* Content */}
-      <div className="container mx-auto px-6 pt-32 pb-20 relative z-10">
+      <div className="container mx-auto px-6 pt-32 pb-36 sm:pb-40 relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Column - Text Content */}
           <div className="space-y-8">
@@ -167,21 +191,20 @@ export const Hero = () => {
           <p className="text-sm text-muted-foreground mb-6 text-center">
             Technologies I work with
           </p>
-          <div className="relative overflow-hidden">
-            <div
-              className="absolute left-0 top-0 bottom-0 w-32
-             bg-gradient-to-r from-background to-transparent z-10"
-            />
-            <div
-              className="absolute right-0 top-0 bottom-0 w-32
-             bg-gradient-to-l from-background to-transparent z-10"
-            />
-            <div className="flex animate-marquee">
-              {[...skills, ...skills].map((skill, idx) => (
-                <div key={idx} className="flex-shrink-0 px-8 py-4">
-                  <span className="text-xl font-semibold text-muted-foreground/50 hover:text-muted-foreground transition-colors">
-                    {skill}
-                  </span>
+          <div className="technology-marquee">
+            <div className="technology-marquee-track">
+              {[false, true].map((isDuplicate) => (
+                <div
+                  className="technology-marquee-set"
+                  aria-hidden={isDuplicate}
+                  key={isDuplicate ? "duplicate" : "primary"}
+                >
+                  {skills.map(({ name, icon: Icon }) => (
+                    <div className="technology-card" key={name}>
+                      <Icon className="technology-card-icon" aria-hidden="true" />
+                      <span>{name}</span>
+                    </div>
+                  ))}
                 </div>
               ))}
             </div>
@@ -190,12 +213,13 @@ export const Hero = () => {
       </div>
 
       <div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 
+        className="absolute bottom-8 left-1/2 z-20 -translate-x-1/2 
       animate-fade-in animation-delay-800"
       >
-        <a
-          href="#about"
-          className="flex flex-col items-center gap-2 text-muted-foreground hover:text-primary transition-colors group"
+          <a
+            href="#about"
+            onClick={scrollToAbout}
+            className="flex flex-col items-center gap-2 text-muted-foreground hover:text-primary transition-colors group"
         >
           <span className="text-xs uppercase tracking-wider">Scroll</span>
           <ChevronDown className="w-6 h-6 animate-bounce" />

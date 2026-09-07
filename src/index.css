@@ -129,6 +129,133 @@
     animation: marquee 30s linear infinite;
   }
 
+  .technology-marquee {
+    --technology-gap: 1rem;
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 7%,
+      black 93%,
+      transparent
+    );
+  }
+
+  .technology-marquee-track {
+    display: flex;
+    width: max-content;
+    animation: marquee 36s linear infinite;
+    will-change: transform;
+  }
+
+  .technology-marquee-set {
+    display: flex;
+    flex: none;
+    gap: var(--technology-gap);
+    padding-right: var(--technology-gap);
+  }
+
+  .technology-card {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    gap: 0.625rem;
+    height: 3.25rem;
+    padding: 0 0.95rem;
+    border: 1px solid color-mix(in srgb, var(--color-primary) 18%, var(--color-border));
+    border-radius: 0.875rem;
+    background-color: color-mix(in srgb, var(--color-surface) 72%, transparent);
+    box-shadow: 0 6px 18px color-mix(in srgb, #000000 18%, transparent);
+    color: var(--color-muted-foreground);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    white-space: nowrap;
+    backdrop-filter: blur(12px);
+    transition: transform 200ms ease, border-color 200ms ease, box-shadow 200ms ease,
+      color 200ms ease;
+  }
+
+  .technology-card-icon {
+    width: 1.125rem;
+    height: 1.125rem;
+    color: var(--color-primary);
+    transition: transform 200ms ease;
+  }
+
+  .technology-card:hover {
+    transform: translateY(-3px) scale(1.03);
+    border-color: color-mix(in srgb, var(--color-primary) 52%, var(--color-border));
+    box-shadow: 0 8px 22px color-mix(in srgb, var(--color-primary) 18%, transparent);
+    color: var(--color-foreground);
+  }
+
+  .technology-card:hover .technology-card-icon {
+    transform: scale(1.08);
+  }
+
+  .technology-marquee:hover .technology-marquee-track {
+    animation-play-state: paused;
+  }
+
+  @media (max-width: 768px) {
+    .technology-marquee {
+      --technology-gap: 0.75rem;
+    }
+
+    .technology-card {
+      height: 2.875rem;
+      padding: 0 0.8rem;
+      font-size: 0.875rem;
+    }
+
+    .technology-card-icon {
+      width: 1rem;
+      height: 1rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .technology-marquee {
+      --technology-gap: 0.625rem;
+    }
+
+    .technology-card {
+      height: 2.625rem;
+      padding: 0 0.7rem;
+      font-size: 0.8125rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .technology-marquee {
+      overflow: visible;
+      mask-image: none;
+    }
+
+    .technology-marquee-track {
+      width: 100%;
+      animation: none;
+    }
+
+    .technology-marquee-set {
+      flex-wrap: wrap;
+      justify-content: center;
+      width: 100%;
+      padding-right: 0;
+    }
+
+    .technology-marquee-set[aria-hidden="true"] {
+      display: none;
+    }
+
+    .technology-card,
+    .technology-card-icon {
+      transition: none;
+    }
+  }
+
   .animation-delay-100 {
     animation-delay: 100ms;
   }
