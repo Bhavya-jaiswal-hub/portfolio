@@ -21,13 +21,14 @@ const contactInfo = [
     icon: Phone,
     label: "Phone",
     value: "6395687548",
-    href: "6395687548",
+    href: "tel:+916395687548",
   },
   {
     icon: MapPin,
     label: "Location",
     value: "Ghaziabad , UP",
-    href: "#",
+    href: "https://www.google.com/maps/search/?api=1&query=Ghaziabad%2C%20Uttar%20Pradesh",
+    external: true,
   },
 ];
 
@@ -219,6 +220,8 @@ export const Contact = () => {
                   <a
                     key={i}
                     href={item.href}
+                    target={item.external ? "_blank" : undefined}
+                    rel={item.external ? "noreferrer" : undefined}
                     className="flex items-center gap-4 p-4 rounded-xl hover:bg-surface transition-colors group"
                   >
                     <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
